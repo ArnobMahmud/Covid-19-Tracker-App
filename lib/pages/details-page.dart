@@ -1,10 +1,11 @@
+import 'package:covid19_app/config/const.dart';
 import 'package:covid19_app/pages/home-page.dart';
 import 'package:covid19_app/widgets/show-covid-info.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CovidDetails extends StatelessWidget {
-  final String updated;
+  final int updated;
   final String countryName;
   final String flag;
   final String cases;
@@ -26,7 +27,8 @@ class CovidDetails extends StatelessWidget {
       this.recoveredToday,
       this.todayDeaths,
       this.flag,
-      this.casesToday, this.updated})
+      this.casesToday,
+      this.updated})
       : super(key: key);
 
   @override
@@ -93,6 +95,23 @@ class CovidDetails extends StatelessWidget {
                     textStyle: TextStyle(
                       color: Colors.blueGrey[600],
                       fontSize: 22.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Last Updated on\n${getFormattedDate(updated, 'hh:mm a')}',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.ubuntu(
+                    textStyle: TextStyle(
+                      color: Colors.teal[300],
+                      fontSize: 24.0,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => CovidProvider(),
+      create: (context) => CovidDataProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Covid19 App',
