@@ -9,13 +9,14 @@ class CovidProvider extends ChangeNotifier {
   CovidData get getCovidData => _covidData;
 
   Future fetchCovideData() async {
-    final url = 'https://disease.sh/v3/covid-19/countries/';
+    final url = 'https://disease.sh/v3/covid-19/all';
     try {
       final response = await Http.get(
         Uri.parse(url),
       );
-      final List responseList = jsonDecode(response.body);
+      final responseMap = jsonDecode(response.body);
       print(response.body);
+      _covidData = CovidData.fromJson(responseMap);
     } catch (err) {
       throw err;
     }
