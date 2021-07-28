@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:covid19_app/pages/details-page.dart';
 import 'package:covid19_app/provider/covid-provider.dart';
+import 'package:covid19_app/widgets/show-world-info.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as Http;
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   List countryData;
   bool isLoading = true;
 
-  Future<String> getData() async {
+  Future<String> getCountryData() async {
     final url = "https://disease.sh/v3/covid-19/countries";
     try {
       final response = await Http.get(
@@ -33,18 +34,42 @@ class _HomePageState extends State<HomePage> {
     } catch (err) {
       throw err;
     }
-    return 'success';
+    return 'request linked successfully!';
   }
+
+  CovidDataProvider covidDataProvider;
 
   @override
   void didChangeDependencies() {
-    getData();
+    covidDataProvider = Provider.of<CovidDataProvider>(context, listen: false);
+    covidDataProvider
+        .fetchCovidData()
+        .then(
+          (_) => {
+            covidDataProvider.fetchCovidData().then(
+                  (_) => {
+                    setState(
+                      () {
+                        isLoading = false;
+                      },
+                    )
+                  },
+                )
+          },
+        )
+        .catchError(
+      (err) {
+        throw err;
+      },
+    );
+    getCountryData();
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amber[50],
       appBar: AppBar(
         backgroundColor: Colors.amber[50],
         elevation: 0,
@@ -67,7 +92,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
-                  height: MediaQuery.of(context).size.height * .25,
+                  height: MediaQuery.of(context).size.height * .20,
                   color: Colors.amber[50],
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -110,78 +135,89 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Expanded(
                   child: Container(
-                    //color: Colors.red[300],
+                    margin: EdgeInsets.only(top: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.pink[50],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                    ),
                     child: Column(
                       children: [
                         Padding(
                           padding: EdgeInsets.all(10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'Worldwide Covid Info',
-                                textAlign: TextAlign.left,
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Colors.brown[800],
-                                  fontSize: 16,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Container(
-                                height:
-                                    MediaQuery.of(context).size.height * .30,
-                                child: Consumer<CovidDataProvider>(
-                                  builder: (context, proObj, _) =>
-                                      ListView.builder(
-                                    itemCount: 4,
-                                    scrollDirection: Axis.horizontal,
-                                    padding: EdgeInsets.only(left: 10.0),
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return Padding(
-                                        padding: EdgeInsets.all(8),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.green[300],
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              .30,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              .35,
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                '',
-                                                style: GoogleFonts.ubuntu(
-                                                  textStyle: TextStyle(
-                                                    color: Colors.blueGrey[600],
-                                                    fontSize: 22.0,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
+                              SizedBox(
+                                height: 5,
                               ),
+                              isLoading
+                                  ? Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              .30,
+                                      child: Consumer<CovidDataProvider>(
+                                        builder: (context, proObj, _) =>
+                                            ListView(
+                                          scrollDirection: Axis.horizontal,
+                                          children: [
+                                            WorldCovidInfo(
+                                              title: 'Total\nCases',
+                                              color: Colors.purple,
+                                              imagePath: 'images/img3.png',
+                                              data: proObj.getCovidData.global
+                                                  .totalConfirmed
+                                                  .toString(),
+                                            ),
+                                            WorldCovidInfo(
+                                              title: 'New\nConfirmed',
+                                              color: Colors.orange[900],
+                                              imagePath: 'images/img1.png',
+                                              data: proObj.getCovidData.global
+                                                  .newConfirmed
+                                                  .toString(),
+                                            ),
+                                            WorldCovidInfo(
+                                              title: 'New\nRecovered',
+                                              color: Colors.green[700],
+                                              imagePath: 'images/img4.png',
+                                              data: proObj.getCovidData.global
+                                                  .newRecovered
+                                                  .toString(),
+                                            ),
+                                            WorldCovidInfo(
+                                              title: 'New\nDeaths',
+                                              color: Colors.red[800],
+                                              imagePath: 'images/img2.png',
+                                              data: proObj
+                                                  .getCovidData.global.newDeaths
+                                                  .toString(),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                             ],
                           ),
                         ),
                         Expanded(
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.amber[100],
+                              color: Colors.amber[50],
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
                                 topRight: Radius.circular(20),
@@ -234,12 +270,22 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(
-                                        top: 10.0,
+                                        top: 12.0,
                                       ),
                                       padding: EdgeInsets.all(8),
                                       decoration: BoxDecoration(
-                                        color: Colors.purple[100],
-                                      ),
+                                          color: Colors.red[100],
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(20),
+                                            topRight: Radius.circular(20),
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Colors.grey,
+                                                offset: Offset(1, 2),
+                                                spreadRadius: -7,
+                                                blurRadius: 10)
+                                          ]),
                                       child: Container(
                                         child: Column(
                                           children: [

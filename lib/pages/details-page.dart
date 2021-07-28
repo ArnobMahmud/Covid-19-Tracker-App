@@ -34,7 +34,7 @@ class CovidDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber[50],
+      backgroundColor: Colors.pink[50],
       appBar: AppBar(
         elevation: 4,
         backgroundColor: Colors.purple[100],
@@ -52,13 +52,15 @@ class CovidDetails extends StatelessWidget {
             );
           },
         ),
-        title: Text(
-          '$countryName Covid Updates',
-          style: GoogleFonts.ubuntu(
-            textStyle: TextStyle(
-              color: Colors.blueGrey[600],
-              fontSize: 22.0,
-              fontWeight: FontWeight.w600,
+        title: Flexible(
+          child: Text(
+            '$countryName Covid Updates',
+            style: GoogleFonts.ubuntu(
+              textStyle: TextStyle(
+                color: Colors.blueGrey[600],
+                fontSize: 22.0,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ),
@@ -68,7 +70,7 @@ class CovidDetails extends StatelessWidget {
         padding: EdgeInsets.all(15),
         width: double.infinity,
         decoration: BoxDecoration(
-            color: Colors.purple[50],
+            color: Colors.green[50],
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
@@ -89,13 +91,15 @@ class CovidDetails extends StatelessWidget {
                   height: 100,
                   width: 100,
                 ),
-                Text(
-                  '$countryName',
-                  style: GoogleFonts.ubuntu(
-                    textStyle: TextStyle(
-                      color: Colors.blueGrey[600],
-                      fontSize: 22.0,
-                      fontWeight: FontWeight.w600,
+                Flexible(
+                  child: Text(
+                    '$countryName',
+                    style: GoogleFonts.ubuntu(
+                      textStyle: TextStyle(
+                        color: Colors.blueGrey[600],
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
@@ -154,7 +158,7 @@ class CovidDetails extends StatelessWidget {
             ),
             Spacer(),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CovidInfoCard(

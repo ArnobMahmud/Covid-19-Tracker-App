@@ -16,10 +16,11 @@ class CovidInfoCard extends StatelessWidget {
       children: [
         Text(
           title,
+          textAlign: TextAlign.left,
           style: GoogleFonts.ubuntu(
             textStyle: TextStyle(
               color: color,
-              fontSize: 20.0,
+              fontSize: 22.0,
               fontWeight: FontWeight.w600,
             ),
           ),
