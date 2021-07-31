@@ -3,8 +3,11 @@ import 'package:covid19_app/pages/home-page.dart';
 import 'package:covid19_app/widgets/show-covid-info.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
+import '../ads/ad_state.dart';
 
-class CovidDetails extends StatelessWidget {
+class CovidDetails extends StatefulWidget {
   final int updated;
   final String countryName;
   final String flag;
@@ -32,6 +35,38 @@ class CovidDetails extends StatelessWidget {
       : super(key: key);
 
   @override
+  _CovidDetailsState createState() => _CovidDetailsState();
+}
+
+class _CovidDetailsState extends State<CovidDetails> {
+  BannerAd banner;
+  @override
+  void didChangeDependencies() {
+    final adState = Provider.of<AdState>(context);
+    try {
+      adState.initialization.then(
+        (status) {
+          setState(
+            () {
+              banner = BannerAd(
+                size: AdSize.banner,
+                adUnitId: adState.bannerAdUnitId,
+                listener: adState.adListener,
+                request: AdRequest(),
+              )..load();
+            },
+          );
+          print(status);
+        },
+      );
+    } catch (err) {
+      throw err;
+    }
+
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.pink[50],
@@ -54,7 +89,7 @@ class CovidDetails extends StatelessWidget {
         ),
         title: Flexible(
           child: Text(
-            '$countryName Covid Updates',
+            '${widget.countryName} Covid Updates',
             style: GoogleFonts.ubuntu(
               textStyle: TextStyle(
                 color: Colors.blueGrey[600],
@@ -87,13 +122,13 @@ class CovidDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.network(
-                  flag,
+                  widget.flag,
                   height: 100,
                   width: 100,
                 ),
                 Flexible(
                   child: Text(
-                    '$countryName',
+                    '${widget.countryName}',
                     style: GoogleFonts.ubuntu(
                       textStyle: TextStyle(
                         color: Colors.blueGrey[600],
@@ -110,7 +145,7 @@ class CovidDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Last Updated on\n${getFormattedDate(updated, 'hh:mm a')}',
+                  'Last Updated on\n${getFormattedDate(widget.updated, 'hh:mm a')}',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.ubuntu(
                     textStyle: TextStyle(
@@ -129,12 +164,12 @@ class CovidDetails extends StatelessWidget {
               children: [
                 CovidInfoCard(
                   title: 'Total Cases',
-                  data: cases,
+                  data: widget.cases,
                   color: Colors.brown[600],
                 ),
                 CovidInfoCard(
                   title: 'Total Recovered',
-                  data: recovered,
+                  data: widget.recovered,
                   color: Colors.blue[900],
                 ),
               ],
@@ -146,12 +181,12 @@ class CovidDetails extends StatelessWidget {
               children: [
                 CovidInfoCard(
                   title: 'Cases Today',
-                  data: casesToday,
+                  data: widget.casesToday,
                   color: Colors.black,
                 ),
                 CovidInfoCard(
                   title: 'Recovered Today',
-                  data: recoveredToday,
+                  data: widget.recoveredToday,
                   color: Colors.green[900],
                 ),
               ],
@@ -163,17 +198,27 @@ class CovidDetails extends StatelessWidget {
               children: [
                 CovidInfoCard(
                   title: 'Total Deaths',
-                  data: deaths,
+                  data: widget.deaths,
                   color: Colors.red[500],
                 ),
                 CovidInfoCard(
                   title: 'Deaths Today',
-                  data: todayDeaths,
+                  data: widget.todayDeaths,
                   color: Colors.red[900],
                 ),
               ],
             ),
             Spacer(),
+            if (banner == null)
+              Container(
+                height: 40,
+              )
+            else
+              Container(
+                child: AdWidget(
+                  ad: banner,
+                ),
+              ),
           ],
         ),
       ),

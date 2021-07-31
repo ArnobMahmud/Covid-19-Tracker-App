@@ -4,8 +4,10 @@ import 'package:covid19_app/provider/covid-provider.dart';
 import 'package:covid19_app/widgets/show-world-info.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:http/http.dart' as Http;
 import 'package:provider/provider.dart';
+import '../ads/ad_state.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -15,6 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  BannerAd banner;
   List countryData;
   bool isLoading = true;
 
@@ -41,20 +44,32 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void didChangeDependencies() {
+    final adState = Provider.of<AdState>(context);
+    adState.initialization.then(
+      (status) {
+        setState(
+          () {
+            banner = BannerAd(
+              size: AdSize.banner,
+              adUnitId: adState.bannerAdUnitId,
+              listener: BannerAdListener(),
+              request: AdRequest(),
+            )..load();
+          },
+        );
+      },
+    );
+
     covidDataProvider = Provider.of<CovidDataProvider>(context, listen: false);
     covidDataProvider
         .fetchCovidData()
         .then(
           (_) => {
-            covidDataProvider.fetchCovidData().then(
-                  (_) => {
-                    setState(
-                      () {
-                        isLoading = false;
-                      },
-                    )
-                  },
-                )
+            setState(
+              () {
+                isLoading = false;
+              },
+            )
           },
         )
         .catchError(
@@ -63,6 +78,7 @@ class _HomePageState extends State<HomePage> {
       },
     );
     getCountryData();
+
     super.didChangeDependencies();
   }
 
@@ -214,6 +230,11 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         ),
+                        // Container(
+                        //   child: AdWidget(
+                        //     ad: banner,
+                        //   ),
+                        // ),
                         Expanded(
                           child: Container(
                             decoration: BoxDecoration(
@@ -389,7 +410,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
     );

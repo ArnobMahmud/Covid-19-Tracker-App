@@ -17,17 +17,15 @@ class WorldCovidInfo extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.green[100],
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              offset: Offset(1,4),
-              spreadRadius: -5,
-              blurRadius: 10
-            )
-          ]
-        ),
+            color: Colors.green[100],
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(1, 4),
+                  spreadRadius: -5,
+                  blurRadius: 10)
+            ]),
         height: MediaQuery.of(context).size.height * .30,
         width: MediaQuery.of(context).size.width * .40,
         child: Column(
@@ -46,8 +44,8 @@ class WorldCovidInfo extends StatelessWidget {
             Spacer(),
             Image.asset(
               imagePath,
-              height: 70,
-              width: 65,
+              height: MediaQuery.of(context).size.height * .13,
+              width: MediaQuery.of(context).size.width * .22,
               fit: BoxFit.cover,
             ),
             Spacer(),

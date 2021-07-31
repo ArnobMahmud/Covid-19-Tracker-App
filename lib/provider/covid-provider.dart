@@ -13,7 +13,7 @@ class CovidDataProvider extends ChangeNotifier {
         Uri.parse(url),
       );
       final responseMap = jsonDecode(response.body);
-      print(responseMap);
+      //print(responseMap);
       _covidData = CovidData.fromJson(responseMap);
     } catch (err) {
       throw err;
