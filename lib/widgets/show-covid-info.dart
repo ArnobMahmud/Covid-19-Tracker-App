@@ -11,16 +11,16 @@ class CovidInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           title,
-          textAlign: TextAlign.left,
+          textAlign: TextAlign.center,
           style: GoogleFonts.ubuntu(
             textStyle: TextStyle(
               color: color,
-              fontSize: 22.0,
+              fontSize: 18.0,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -29,8 +29,9 @@ class CovidInfoCard extends StatelessWidget {
           height: 10,
         ),
         Text(
-          data,
-          style: GoogleFonts.poppins(
+          data == null ? 'loading...' : data,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.rajdhani(
             textStyle: TextStyle(
               color: color,
               fontSize: 26.0,

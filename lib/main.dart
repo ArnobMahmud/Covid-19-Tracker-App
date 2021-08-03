@@ -5,18 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
-import './ads/ad_state.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  final initFuture = MobileAds.instance.initialize();
-  final adState = AdState(initialization: initFuture);
-  runApp(
-    Provider.value(
-      value: adState,
-      builder: (context, child) => MyApp(),
-    ),
-  );
+  WidgetsFlutterBinding
+      .ensureInitialized(); // needs to be called because run app isn't called first
+  MobileAds.instance.initialize();
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -26,15 +20,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+      ],
+    );
     return ChangeNotifierProvider(
       create: (context) => CovidDataProvider(),
       child: MaterialApp(
