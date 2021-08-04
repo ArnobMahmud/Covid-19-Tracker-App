@@ -2,7 +2,21 @@
 
 Covid’19 Tracker application which provides real time Covid'19 info off : Daily cases, Recovered amount, and number of Deaths as well as total values of every country worldwide! Stay Home , Stay Safe. 🖤
 
-![Capture](https://user-images.githubusercontent.com/60808266/127362477-1e2782fe-1647-4f36-a192-04d855091438.PNG)
+![Capture](https://user-images.githubusercontent.com/60808266/128222503-6e19a240-036e-4108-beb7-8437ba27afd8.PNG)
+
+<table>
+  <tr>
+    <td>
+      <img src="https://user-images.githubusercontent.com/60808266/128222606-5781240a-91dc-4ddd-a4d8-96afba7fb7d2.png">
+    </td>
+    <td>
+      <img src="https://user-images.githubusercontent.com/60808266/128222620-ee0ad4f8-ab79-4240-9e24-1c5651065614.png">
+    </td>
+    <td>
+      <img src="https://user-images.githubusercontent.com/60808266/128222632-48f3174d-e7dd-465e-842b-786773301fd2.png">
+    </td>
+  </tr>
+</table>
 
 [![](https://img.shields.io/badge/License-MIT-critical?style=plastic&logo=appveyor&logoColor=a70023&labelColor=lightblue&color=471e61)](https://github.com/ArnobMahmud/Covid-19-Tracker-App/blob/master/LICENSE)&nbsp;
 [![develop-with-arnob](https://img.shields.io/badge/Develop%20with-Arnob%20Mahmud-1f425f.svg?style=plastic&logo=visual-studio-code&logoColor=007ACC&labelColor=c3c4d5&color=193507)](https://github.com/ArnobMahmud/)&nbsp;
