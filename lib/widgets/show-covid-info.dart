@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 class CovidInfoCard extends StatelessWidget {
   final String title;
   final String data;
@@ -24,6 +25,7 @@ class CovidInfoCard extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
+          softWrap: true,
         ),
         SizedBox(
           height: 10,
@@ -38,6 +40,7 @@ class CovidInfoCard extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
+          softWrap: true,
         )
       ],
     );

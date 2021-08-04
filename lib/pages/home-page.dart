@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:covid19_app/pages/details-page.dart';
+import 'package:covid19_app/pages/developer-page.dart';
+import 'package:covid19_app/provider/connectivity-provider.dart';
 import 'package:covid19_app/provider/covid-provider.dart';
 import 'package:covid19_app/widgets/show-world-info.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _createInterstitialAd(); // create ad
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
 
   _createInterstitialAd() {
@@ -54,12 +57,12 @@ class _HomePageState extends State<HomePage> {
     myInterstitial.fullScreenContentCallback = FullScreenContentCallback(
       // when dismissed
       onAdDismissedFullScreenContent: (InterstitialAd ad) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CovidDetails(), // go to next page
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => CovidDetails(), // go to next page
+        //   ),
+        // );
         ad.dispose(); // dispose of ad
       },
 
@@ -144,6 +147,24 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.developer_board,
+              color: Colors.blueGrey,
+              size: 30.0,
+            ),
+            onPressed: () {
+              _showInterstitialAd();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => DeveloperPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: isLoading
           ? Center(
@@ -152,45 +173,54 @@ class _HomePageState extends State<HomePage> {
           : Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding:
+                      EdgeInsets.only(left: 10, right: 15, top: 10, bottom: 5),
                   height: MediaQuery.of(context).size.height * .20,
                   color: Colors.amber[50],
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Flexible(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
                               'Novel Corona\nVirus',
                               style: TextStyle(
                                 color: Colors.teal[800],
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
+                              softWrap: true,
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
                               'Stay Home Stay Safe',
                               style: TextStyle(
                                 color: Colors.brown[800],
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
-                            )
-                          ],
+                              softWrap: true,
+                            ),
+                          )
+                        ],
+                      ),
+                      FittedBox(
+                        child: Image.asset(
+                          'images/bacteria.png',
+                          height: MediaQuery.of(context).size.height * .25,
+                          width: MediaQuery.of(context).size.width * .40,
+                          fit: BoxFit.contain,
                         ),
                       ),
-                      Image.asset(
-                        'images/covid_logo.png',
-                        width: MediaQuery.of(context).size.width * .38,
-                        height: MediaQuery.of(context).size.height * .25,
-                        fit: BoxFit.cover,
-                      )
                     ],
                   ),
                 ),
@@ -238,7 +268,7 @@ class _HomePageState extends State<HomePage> {
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
-                                              .30,
+                                              .35,
                                           child: Consumer<CovidDataProvider>(
                                             builder: (context, proObj, _) =>
                                                 ListView(
@@ -301,7 +331,9 @@ class _HomePageState extends State<HomePage> {
                                     padding: EdgeInsets.only(
                                       top: 5,
                                     ),
-                                    itemCount: countryData.length,
+                                    itemCount: countryData.length == null
+                                        ? 1
+                                        : countryData.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       return InkWell(
@@ -347,7 +379,7 @@ class _HomePageState extends State<HomePage> {
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
-                                              .2,
+                                              .20,
                                           width: double.infinity,
                                           margin: EdgeInsets.only(
                                             top: 12.0,
@@ -372,28 +404,75 @@ class _HomePageState extends State<HomePage> {
                                               children: [
                                                 Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      '${countryData[index]['country']}' ==
+                                                              null
+                                                          ? 'loading...'
+                                                          : '${countryData[index]['country']}',
+                                                      style: GoogleFonts.ubuntu(
+                                                        textStyle: TextStyle(
+                                                          color: Colors
+                                                              .blueGrey[600],
+                                                          fontSize: 22.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 12,
+                                                ),
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Image.network(
-                                                      countryData[index]
-                                                              ['countryInfo']
-                                                          ['flag'],
+                                                      countryData[index][
+                                                                      'countryInfo']
+                                                                  ['flag'] ==
+                                                              null
+                                                          ? Icon(
+                                                              Icons.flag,
+                                                              size: 40.0,
+                                                              color: Colors
+                                                                  .blueGrey,
+                                                            )
+                                                          : countryData[index][
+                                                                  'countryInfo']
+                                                              ['flag'],
                                                       height: 60,
                                                       width: 60,
                                                     ),
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              .1,
+                                                    ),
                                                     Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
                                                         Text(
-                                                          '${countryData[index]['country']}',
+                                                          'Cases : ${countryData[index]['cases']}' ==
+                                                                  null
+                                                              ? 'loading'
+                                                              : 'Cases : ${countryData[index]['cases']}',
                                                           style: GoogleFonts
-                                                              .ubuntu(
+                                                              .poppins(
                                                             textStyle:
                                                                 TextStyle(
                                                               color: Colors
-                                                                      .blueGrey[
-                                                                  600],
-                                                              fontSize: 22.0,
+                                                                  .brown[600],
+                                                              fontSize: 18.0,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w600,
@@ -401,72 +480,14 @@ class _HomePageState extends State<HomePage> {
                                                           ),
                                                           overflow: TextOverflow
                                                               .ellipsis,
-                                                          maxLines: 2,
+                                                          // maxLines: 2,
                                                           softWrap: true,
                                                         ),
-                                                        SizedBox(
-                                                          height: 15,
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: [
-                                                            Container(
-                                                              child: Row(
-                                                                children: [
-                                                                  Text(
-                                                                    'Cases : ${countryData[index]['cases']}',
-                                                                    style: GoogleFonts
-                                                                        .poppins(
-                                                                      textStyle:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .brown[600],
-                                                                        fontSize:
-                                                                            18.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                      ),
-                                                                    ),
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    // maxLines: 2,
-                                                                    softWrap:
-                                                                        true,
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 15,
-                                                                  ),
-                                                                  Text(
-                                                                    'Deaths : ${countryData[index]['deaths']}',
-                                                                    style: GoogleFonts
-                                                                        .poppins(
-                                                                      textStyle:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .red[800],
-                                                                        fontSize:
-                                                                            18.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                      ),
-                                                                    ),
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
                                                         Text(
-                                                          'Recovered : ${countryData[index]['recovered']}',
+                                                          'Recovered : ${countryData[index]['recovered']}' ==
+                                                                  null
+                                                              ? 'loading'
+                                                              : 'Recovered : ${countryData[index]['recovered']}',
                                                           style: GoogleFonts
                                                               .poppins(
                                                             textStyle:
@@ -483,6 +504,26 @@ class _HomePageState extends State<HomePage> {
                                                               .ellipsis,
                                                           maxLines: 2,
                                                           softWrap: true,
+                                                        ),
+                                                        Text(
+                                                          'Deaths : ${countryData[index]['deaths']}' ==
+                                                                  null
+                                                              ? 'loading'
+                                                              : 'Deaths : ${countryData[index]['deaths']}',
+                                                          style: GoogleFonts
+                                                              .poppins(
+                                                            textStyle:
+                                                                TextStyle(
+                                                              color: Colors
+                                                                  .red[800],
+                                                              fontSize: 18.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                          ),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
                                                         ),
                                                       ],
                                                     )
