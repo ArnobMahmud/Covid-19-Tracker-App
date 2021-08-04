@@ -2,18 +2,18 @@
 
 Covid’19 Tracker application which provides real time Covid'19 info off : Daily cases, Recovered amount, and number of Deaths as well as total values of every country worldwide! Stay Home , Stay Safe. 🖤
 
-![Capture](https://user-images.githubusercontent.com/60808266/128024158-cf7e5c5f-9ff3-4c4c-901a-4d86ed4ba729.PNG)
+![Capture](https://user-images.githubusercontent.com/60808266/128222503-6e19a240-036e-4108-beb7-8437ba27afd8.PNG)
 
 <table>
   <tr>
     <td>
-      <img src="https://user-images.githubusercontent.com/60808266/128023589-bf12fabc-3e54-40de-b48a-c872a74906b8.png">
+      <img src="https://user-images.githubusercontent.com/60808266/128222606-5781240a-91dc-4ddd-a4d8-96afba7fb7d2.png">
     </td>
     <td>
-      <img src="https://user-images.githubusercontent.com/60808266/128023559-6d06a933-7ec1-498d-b577-6f702183b560.png">
+      <img src="https://user-images.githubusercontent.com/60808266/128222620-ee0ad4f8-ab79-4240-9e24-1c5651065614.png">
     </td>
     <td>
-      <img src="https://user-images.githubusercontent.com/60808266/128023532-4d8a1e8e-6cd0-4487-a2fb-35b84a67fca0.png">
+      <img src="https://user-images.githubusercontent.com/60808266/128222632-48f3174d-e7dd-465e-842b-786773301fd2.png">
     </td>
   </tr>
 </table>
