@@ -4,7 +4,25 @@ Covid’19 Tracker application which provides real time Covid'19 info off : Dail
 
 ![Capture](https://user-images.githubusercontent.com/60808266/128222503-6e19a240-036e-4108-beb7-8437ba27afd8.PNG)
 
+
 <table>
+  <tr>
+    <th>Splash Screen</th>
+    <th>Network Status</th>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://user-images.githubusercontent.com/60808266/128632861-3bce069b-961f-420f-8fdb-e7aed1f89c7e.png">
+    </td>
+    <td>
+      <img src="https://user-images.githubusercontent.com/60808266/128632866-2b718ef6-ec7f-499a-ba1e-e5cda71af922.png">
+    </td>
+  </tr>
+  <tr>
+    <th>Covid'19 Data Screen</th>
+    <th>Country-wise Data Screen</th>
+    <th>Developer Screen</th>
+  </tr>
   <tr>
     <td>
       <img src="https://user-images.githubusercontent.com/60808266/128222606-5781240a-91dc-4ddd-a4d8-96afba7fb7d2.png">
