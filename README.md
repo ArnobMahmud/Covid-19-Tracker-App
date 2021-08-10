@@ -2,8 +2,7 @@
 
 Covid’19 Tracker application which provides real time Covid'19 info off : Daily cases, Recovered amount, and number of Deaths as well as total values of every country worldwide! Stay Home , Stay Safe. 🖤
 
-![Capture](https://user-images.githubusercontent.com/60808266/128222503-6e19a240-036e-4108-beb7-8437ba27afd8.PNG)
-
+![Untitled-2](https://user-images.githubusercontent.com/60808266/128819148-611e2686-7214-42d2-a7bd-d4d645de082f.png)
 
 <table>
   <tr>
@@ -12,10 +11,10 @@ Covid’19 Tracker application which provides real time Covid'19 info off : Dail
   </tr>
   <tr>
     <td>
-      <img src="https://user-images.githubusercontent.com/60808266/128632861-3bce069b-961f-420f-8fdb-e7aed1f89c7e.png">
+      <img src="https://user-images.githubusercontent.com/60808266/128819750-b64ef33f-8806-499f-9943-3b16e50c8d9b.jpg">
     </td>
     <td>
-      <img src="https://user-images.githubusercontent.com/60808266/128632866-2b718ef6-ec7f-499a-ba1e-e5cda71af922.png">
+      <img src="https://user-images.githubusercontent.com/60808266/128818805-6bda77ff-138e-4ad3-bcb5-fae68845f006.jpg">
     </td>
   </tr>
   <tr>
@@ -25,13 +24,13 @@ Covid’19 Tracker application which provides real time Covid'19 info off : Dail
   </tr>
   <tr>
     <td>
-      <img src="https://user-images.githubusercontent.com/60808266/128222606-5781240a-91dc-4ddd-a4d8-96afba7fb7d2.png">
+      <img src="https://user-images.githubusercontent.com/60808266/128818790-a61a39a2-874b-476a-bcd1-54bd63befccd.jpg">
     </td>
     <td>
-      <img src="https://user-images.githubusercontent.com/60808266/128222620-ee0ad4f8-ab79-4240-9e24-1c5651065614.png">
+      <img src="https://user-images.githubusercontent.com/60808266/128818798-414dd167-d416-4f79-a8be-bde8e130819b.jpg">
     </td>
     <td>
-      <img src="https://user-images.githubusercontent.com/60808266/128222632-48f3174d-e7dd-465e-842b-786773301fd2.png">
+      <img src="https://user-images.githubusercontent.com/60808266/128818801-4aed16ea-7d8f-41b2-b837-7a37efdee18a.jpg">
     </td>
   </tr>
 </table>
