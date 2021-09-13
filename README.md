@@ -2,7 +2,7 @@
 
 Covid’19 Tracker application which provides real time Covid'19 info off : Daily cases, Recovered amount, and number of Deaths as well as total values of every country worldwide! Stay Home , Stay Safe. 🖤
 
-![Untitled-2](https://user-images.githubusercontent.com/60808266/128819148-611e2686-7214-42d2-a7bd-d4d645de082f.png)
+![Banner](https://user-images.githubusercontent.com/60808266/128819148-611e2686-7214-42d2-a7bd-d4d645de082f.png)
 
 <table>
   <tr>
@@ -32,6 +32,17 @@ Covid’19 Tracker application which provides real time Covid'19 info off : Dail
     <td>
       <img src="https://user-images.githubusercontent.com/60808266/128818801-4aed16ea-7d8f-41b2-b837-7a37efdee18a.jpg">
     </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>UX Preview</th>
+    <th>Get it on APKPure</th>
+  </tr>
+  <tr>
+    <td rowspan=2><video src="https://user-images.githubusercontent.com/60808266/133123337-12507d87-c8fd-4ef8-9f30-cec5b6230426.mp4"></video></td>
+    <td rowspan=2><a href="https://apkpure.com/p/com.ripplebee.daily_covid_update_app"><img src="https://i.redd.it/p7bhcg0vib601.png"></a></td>
   </tr>
 </table>
 
